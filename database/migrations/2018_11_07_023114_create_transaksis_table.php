@@ -15,11 +15,17 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('book_id');
-            $table->unsignedInteger('id_peminjam');
-            $table->dateTime('tanggalPeminjaman');
-            $table->dateTime('tanggalPengembalian')->nullable();
+            $table->unsignedInteger('id_pembeli');
+            $table->double('totalPembelian');
+            $table->text('alamatTujuan');
+            $table->dateTime('tanggalPembelian');
+            $table->dateTime('tanggalPembayaran')->nullable();
+            $table->integer('status');
             $table->timestamps();
+
+            $table->foreign('id_pembeli')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
         });
     }
 
